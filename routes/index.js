@@ -1,7 +1,12 @@
 const router = require('express').Router()
+const {
+    register,
+    login
+} = require('../controllers/user')
 
-router.get('/',(req,res) => {
-    res.status(200).send('connected to express')
-})
+router.post('/login',login)
+router.post('/register',register)
+
+
 
 module.exports = router

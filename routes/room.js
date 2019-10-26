@@ -5,6 +5,9 @@ const {
     createRoom,
     updateRoom
 } = require('../controllers/room')
+const { authentication } = require('../middleware')
+
+router.use(authentication)
 
 router.get('/',findAllRoom)
 router.get('/:room_id',findOneRoom)
