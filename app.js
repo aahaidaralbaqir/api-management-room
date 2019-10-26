@@ -17,13 +17,11 @@ const orderRoutes = require('./routes/order')
 const checkinRoutes = require('./routes/checkin')
 // router group
 app.group('/api/v2',(router) => {
-   
     router.use('/',indexRoutes)
     router.use('/rooms',roomRoutes)
     router.use('/costumers',costumerRoutes)
     router.use('/orders',orderRoutes)
     router.use('/checkin',checkinRoutes)
-
 })
 
 // lister server

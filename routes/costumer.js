@@ -1,7 +1,30 @@
 const router = require('express').Router()
+const { 
+    findAllCostumer,
+    findOneCostumer,
+    createCostumer,
+    updateCostumer
+} = require('../controllers/costumer')
+const { authentication } = require('../middleware')
 
-router.get('/',(req,res) => {
-    res.status(200).send('connected to costumer')
-})
+router.use(authentication)
+
+router
+    .get(
+        '/',
+        findAllCostumer
+    )
+    .get(
+        '/:costumer_id',
+        findOneCostumer
+    )
+    .post(
+        '/',
+        createCostumer
+    )
+    .put(
+        '/:costumer_id',
+        updateCostumer
+    )
 
 module.exports = router

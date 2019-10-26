@@ -9,9 +9,22 @@ const { authentication } = require('../middleware')
 
 router.use(authentication)
 
-router.get('/',findAllRoom)
-router.get('/:room_id',findOneRoom)
-router.post('/',createRoom)
-router.put('/:room_id',updateRoom)
+router
+ .get(
+     '/',
+     findAllRoom
+  )
+ .get(
+     '/:room_id',
+     findOneRoom
+ )
+ .post(
+     '/',
+     createRoom
+  )
+router.put(
+    '/:room_id',
+    updateRoom
+)
 
 module.exports = router
