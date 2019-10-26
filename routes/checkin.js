@@ -1,8 +1,5 @@
 const router = require('express').Router()
-const {
-    createCheckin,
-    findAllCheckin
-} = require('../controllers/checkin')
+const { findAllOrder,createOrder } = require('../controllers/order')
 const { authentication } = require('../middleware')
 
 
@@ -11,11 +8,11 @@ router.use(authentication)
 router
  .post(
     '/',
-    createCheckin
+    createOrder
  )
  .get(
      '/',
-     findAllCheckin
+     findAllOrder
  )
 
 

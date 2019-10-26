@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   room.associate = function(models) {
-    // associations can be defined here
+    room.belongsToMany(models.costumer,{
+      through : 'orders',
+      foreignKey : 'room_id'
+    })
   };
   return room;
 };
