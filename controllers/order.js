@@ -1,13 +1,14 @@
 const Room = require('../models').room
 const Costumer = require('../models').costumer
 const Order = require('../models').order
+
 exports.findAllOrder = (req,res) => {
     Room.findAll({
         include : [
             {
              model : Costumer,
              through : {
-                model : Order,
+                model : Order,  
               }
             }
         ]
@@ -18,10 +19,18 @@ exports.findAllOrder = (req,res) => {
         for(let i = 0; i < len; i++) {
             data[i].is_booked = false,
             data[i].is_done = true
+            data[i].order_id = null
+            data[i].costumer_id = null
+            data[i].duration = 0,
+            data[i].created_at = 0
             data[i].costumers.map((item,index) => {
                 if(item.orders.is_booked == true && item.orders.is_done == false) {
                     data[i].is_booked = true,
                     data[i].is_done = false
+                    data[i].order_id = item.orders.id
+                    data[i].costumer_id = item.orders.costumer_id
+                    data[i].duration = item.orders.duration
+                    data[i].created_at = item.orders.createdAt
                     return item
                 }
             })
@@ -47,6 +56,33 @@ exports.createOrder = (req,res) => {
     }
     Order
      .create(data)
+     .then(result => {
+        res
+         .status(200)
+         .send(result)
+     })
+     .catch(error => {
+        res
+        .status(400)
+        .send(result)
+     })
+}
+
+exports.checkoutOrder = (req,res) => {
+    let { order_id } = req.params
+    let data = {
+        is_booked : 0,
+        is_done : 1
+    } 
+    Order
+     .update(
+         data,
+         {
+             where : {
+                id : order_id
+             }
+         }
+     )
      .then(result => {
         res
          .status(200)
