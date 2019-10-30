@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const {
     findAllRoom,
-    findOneRoom,
+    findOneRoom,    
     createRoom,
     updateRoom
 } = require('../controllers/room')
@@ -11,7 +11,7 @@ router.use(authentication)
 
 router
  .get(
-     '/',
+     '/',   
      findAllRoom
   )
  .get(

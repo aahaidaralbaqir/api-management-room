@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       order_end_time: {
-        type: Sequelize.TIME
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

@@ -1,7 +1,8 @@
 const Room = require('../models').room
 const Costumer = require('../models').costumer
 const Order = require('../models').order
-
+const moment = require('moment')
+const {getCurrentTime}  = require('../helpers/date')
 exports.findAllOrder = (req,res) => {
     Room.findAll({
         include : [
@@ -22,7 +23,8 @@ exports.findAllOrder = (req,res) => {
             data[i].order_id = null
             data[i].costumer_id = null
             data[i].duration = 0,
-            data[i].created_at = 0
+            data[i].created_at = 0,
+            data[i].order_end_time = 0
             data[i].costumers.map((item,index) => {
                 if(item.orders.is_booked == true && item.orders.is_done == false) {
                     data[i].is_booked = true,
@@ -31,6 +33,7 @@ exports.findAllOrder = (req,res) => {
                     data[i].costumer_id = item.orders.costumer_id
                     data[i].duration = item.orders.duration
                     data[i].created_at = item.orders.createdAt
+                    data[i].order_end_time = item.orders.order_end_time
                     return item
                 }
             })
@@ -45,12 +48,15 @@ exports.findAllOrder = (req,res) => {
 }
 
 exports.createOrder = (req,res) => {
-    let {room_id,costumer_id,duration,order_end_time,is_booked,is_done} = req.body
+    let {room_id,costumer_id,duration,is_booked,is_done} = req.body
+    const time = new Date();
+      time.setMinutes(time.getMinutes() + parseInt(duration));
+      console.log(time)
     let data = {
         room_id,
         costumer_id,
         duration,
-        order_end_time,
+        order_end_time : time,
         is_booked,
         is_done
     }
