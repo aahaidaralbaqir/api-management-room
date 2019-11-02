@@ -51,7 +51,6 @@ exports.createOrder = (req,res) => {
     let {room_id,costumer_id,duration,is_booked,is_done} = req.body
     const time = new Date();
       time.setMinutes(time.getMinutes() + parseInt(duration));
-      console.log(time)
     let data = {
         room_id,
         costumer_id,
